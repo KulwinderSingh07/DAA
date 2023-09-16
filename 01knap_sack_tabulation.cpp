@@ -33,21 +33,25 @@ int main()
     int total_weight;
     cout<<"Enter the value of total weight:";
     cin>>total_weight;
-    vector<vector<int>> table(n+1,vector<int>(total_weight+1,0));
+    vector<int> table(total_weight+1,0);
     for(int i=1;i<n+1;i++){
-        for(int j=1;j<total_weight+1;j++){
-            if(arr[i].weight>j){
-                table[i][j]=table[i-1][j];
-            }else{
-                table[i][j]=max(table[i-1][j],(arr[i].profit+table[i-1][j-arr[i].weight]));
+        for(int j=total_weight;j>0;j--){
+            if(arr[i].weight<=j){
+                table[j]=max(table[j],(arr[i].profit+table[j-arr[i].weight]));
             }
         }
+        for(int k=0;k<table.size();k++){
+            cout<<table[k]<<" ";
+        }
+        cout<<endl;
     }
+
+    cout<<table[total_weight];
     int j=total_weight;
     int i=n;
-    cout<<"              The considered items are as folowing                 "<<endl;
-    cout<<"SrNo"<<"\t\t"<<"Profit"<<"\t\t"<<"Weight"<<endl;
-    listDownTheConsideredItems(i,j,table,arr);
+    // cout<<"              The considered items are as folowing                 "<<endl;
+    // cout<<"SrNo"<<"\t\t"<<"Profit"<<"\t\t"<<"Weight"<<endl;
+    // listDownTheConsideredItems(i,j,table,arr);
     
     
 
